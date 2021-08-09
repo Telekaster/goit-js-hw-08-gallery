@@ -68,29 +68,29 @@ const galleryItems = [
 galleryItems.map((item) => {
 
     // Создаем <li>
-    const createItem = document.createElement('li');
-    createItem.classList.add('gallery__item');
+    const listItem = document.createElement('li');
+    listItem.classList.add('gallery__item');
     
     // Создаем <a>
-    const createLink = document.createElement('a');
-    createLink.classList.add('gallery__link');
-    createLink.setAttribute('href', item.original)
+    const link = document.createElement('a');
+    link.classList.add('gallery__link');
+    link.setAttribute('href', item.original)
 
     // Создаем <img>
-    const createImage = document.createElement('img');
-    createImage.classList.add('gallery__image');
-    createImage.setAttribute('src', item.preview);
-    createImage.setAttribute('data-source', item.original);
-    createImage.setAttribute('alt', item.description);
+    const image = document.createElement('img');
+    image.classList.add('gallery__image');
+    image.setAttribute('src', item.preview);
+    image.setAttribute('data-source', item.original);
+    image.setAttribute('alt', item.description);
 
     // Создаем ветку
-    createLink.append(createImage);
-    createItem.append(createLink);
-    console.log(createItem);
+    link.append(image);
+    listItem.append(link);
+    console.log(listItem);
 
     // Встраиваем в html
     const galleryList = document.querySelector('.js-gallery');
-    galleryList.append(createItem);
+    galleryList.append(listItem);
 
 })
 // ------------------------------------------------------------
