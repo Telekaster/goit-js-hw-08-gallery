@@ -64,10 +64,12 @@ const galleryItems = [
     },
 ];
 
+const galleryList = document.querySelector('.js-gallery');
+
 // Создаём изображения----------------------------------
 galleryItems.map((item) => {
 
-    // Создаем <li>
+     // Создаем <li>
     const listItem = document.createElement('li');
     listItem.classList.add('gallery__item');
     
@@ -86,7 +88,6 @@ galleryItems.map((item) => {
     // Создаем ветку
     link.append(image);
     listItem.append(link);
-    console.log(listItem);
 
     // Встраиваем в html
     const galleryList = document.querySelector('.js-gallery');
@@ -95,10 +96,35 @@ galleryItems.map((item) => {
 })
 // ------------------------------------------------------------
 
+// Модалка-----------------------------------------------
+galleryList.addEventListener('click', galaryClickHandler);
+    
+function galaryClickHandler(evt) {
+    evt.preventDefault();
+    if (event.target.nodeName !== "IMG") return;
 
+    // Открытие модалки
+    const modal = document.querySelector(".lightbox");
+    modal.classList.add('is-open');
 
+    // Изображение
+    const image = document.querySelector('.lightbox__image');
 
+    const arr = document.querySelectorAll('.gallery__image');
 
+    image.setAttribute('src', event.target.dataset.source)
+    
+    // Закрытие модалки
+    const modalCloseBtn = document.querySelector('.lightbox__button');
+    modalCloseBtn.addEventListener('click', modalCloseClickHandler);
+    
+    function modalCloseClickHandler() {
 
+        modal.classList.remove('is-open');
+        
+        image.removeAttribute('src');
+        
+    }
+}
 
-
+// ---------------------------------------------------------------
