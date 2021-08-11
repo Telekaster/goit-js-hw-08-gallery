@@ -65,11 +65,18 @@ const galleryItems = [
 ];
 
 const galleryList = document.querySelector('.js-gallery');
+const modal = document.querySelector(".lightbox");
+const image = document.querySelector('.lightbox__image');
+
+
+
+
 
 // Создаём изображения----------------------------------
-galleryItems.map((item) => {
 
-     // Создаем <li>
+    const gallery = galleryItems.map((item) => {
+
+    // Создаем <li>
     const listItem = document.createElement('li');
     listItem.classList.add('gallery__item');
     
@@ -89,11 +96,13 @@ galleryItems.map((item) => {
     link.append(image);
     listItem.append(link);
 
-    // Встраиваем в html
-    const galleryList = document.querySelector('.js-gallery');
-    galleryList.append(listItem);
+    return listItem;
+   
+    })
 
-})
+    // Встраиваем в html
+    galleryList.append(...gallery);
+
 // ------------------------------------------------------------
 
 // Модалка-----------------------------------------------
@@ -104,7 +113,6 @@ function galaryClickHandler(evt) {
     if (event.target.nodeName !== "IMG") return;
 
     // Открытие модалки
-    const modal = document.querySelector(".lightbox");
     modal.classList.add('is-open');
 
     // Изображение
@@ -113,18 +121,59 @@ function galaryClickHandler(evt) {
     const arr = document.querySelectorAll('.gallery__image');
 
     image.setAttribute('src', event.target.dataset.source)
+    image.setAttribute('alt', event.target.alt)
     
     // Закрытие модалки
     const modalCloseBtn = document.querySelector('.lightbox__button');
     modalCloseBtn.addEventListener('click', modalCloseClickHandler);
-    
-    function modalCloseClickHandler() {
+
+     function modalCloseClickHandler() {
 
         modal.classList.remove('is-open');
         
         image.removeAttribute('src');
         
     }
+    
 }
 
 // ---------------------------------------------------------------
+
+// Закрытие модального окна по клику на div.lightbox__overlay.----
+
+const overlay = document.querySelector('.lightbox__overlay');
+overlay.addEventListener('click', overlayCloseClickHandler)
+
+function overlayCloseClickHandler(evt) {
+
+    modal.classList.remove('is-open');
+    image.removeAttribute('src');
+
+}
+
+// ---------------------------------------------------------------
+
+// Закрытие модального окна по нажатию клавиши ESC.---------------
+
+window.addEventListener('keydown', overlayCloseEscHandler)
+
+function overlayCloseEscHandler(evt) {
+
+    if (evt.key === "Escape") {
+        modal.classList.remove('is-open');
+        image.removeAttribute('src');
+    }
+
+}
+
+// ---------------------------------------------------------------
+
+// Пролистывание изображений галереи в открытом модальном окне клавишами "влево" и "вправо".
+
+// Вправо
+
+
+
+
+
+
