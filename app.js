@@ -91,6 +91,7 @@ const image = document.querySelector('.lightbox__image');
     image.setAttribute('src', item.preview);
     image.setAttribute('data-source', item.original);
     image.setAttribute('alt', item.description);
+    
 
     // Создаем ветку
     link.append(image);
@@ -117,8 +118,6 @@ function galaryClickHandler(evt) {
 
     // Изображение
     const image = document.querySelector('.lightbox__image');
-
-    const arr = document.querySelectorAll('.gallery__image');
 
     image.setAttribute('src', event.target.dataset.source)
     image.setAttribute('alt', event.target.alt)
@@ -172,8 +171,52 @@ function overlayCloseEscHandler(evt) {
 
 // Вправо
 
+window.addEventListener('keydown', changeImageKeyRightHandler);
+const smallImage = document.querySelector('.gallery__image');
+
+function changeImageKeyRightHandler(evt) {
+    if (evt.key === 'ArrowRight') {
 
 
+        for (let i = 0; i < galleryItems.length; i += 1){
+                
+            if (galleryItems[i].original === image.src) {
+                   
 
+                if (i === galleryItems.length - 1) {
+                        return;
+                }
+                    
+                image.setAttribute('src', galleryItems[i + 1].original)
+                break;
+            }
+        }
+    }       
+}
+
+// Влево
+
+window.addEventListener('keydown', changeImageKeyLeftHandler);
+
+function changeImageKeyLeftHandler(evt) {
+
+    if (evt.key === 'ArrowLeft') {
+        
+        for (let i = 0; i < galleryItems.length; i += 1) {
+        
+            if (galleryItems[i].original === image.src) {
+
+                if (i === 0) {
+                    return;
+                }
+
+                image.setAttribute('src', galleryItems[i - 1].original)
+                break;
+            
+            }
+        }
+    }
+}
+// -----------------------------------------------------------------------------
 
 
